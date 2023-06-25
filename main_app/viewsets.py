@@ -12,18 +12,22 @@ from django.db.models import Count
 
 
 class MenuViewSet(viewsets.ModelViewSet):
+    """Basic Menu ViewSet"""
+
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class MenuSingleView(generics.RetrieveDestroyAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+# class MenuSingleView(generics.RetrieveDestroyAPIView):
+#     queryset = Menu.objects.all()
+#     serializer_class = MenuSerializer
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class RestaurantViewSet(viewsets.ModelViewSet):
+    """Basic Restaurant ViewSet"""
+
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -31,6 +35,7 @@ class RestaurantViewSet(viewsets.ModelViewSet):
 
 @permission_classes([permissions.IsAuthenticatedOrReadOnly])
 class TodayMenuList(generics.ListAPIView):
+    """List Api View to GET todays menu list"""
     today = calendar.day_name[date.today().weekday()][:2]
     queryset = Menu.objects.filter(day=today)
     serializer_class = MenuSerializer
@@ -38,6 +43,8 @@ class TodayMenuList(generics.ListAPIView):
 
 @permission_classes([permissions.IsAuthenticatedOrReadOnly])
 class MostVotedMenuList(generics.ListAPIView):
+    """List Api View to GET todays most voted menu list"""
+    
     serializer_class = MenuSerializer
 
     def get_queryset(self):

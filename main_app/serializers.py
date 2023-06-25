@@ -1,13 +1,26 @@
 from rest_framework import serializers, viewsets, permissions
+from auth_app.models import Vote
+
+from auth_app.serializers import VoteSerializer
 from .models import Restaurant, Menu
 
 
 class MenuSerializer(serializers.ModelSerializer):
+    """Basic Menu Serializer"""
+
+    votes = serializers.SerializerMethodField()
+
     class Meta:
         model = Menu
-        fields = '__all__'
+        fields = ['title', 'day', 'price', 'description', 'votes'] # Added votes count
+    
+    def get_votes(self, obj):
+        votes = Vote.objects.filter(chosen_menu=obj)
+        return votes.count()
 
 class RestaurantSerializer(serializers.ModelSerializer):
+    """Basic Restaurant Serializer"""
+
     menus = MenuSerializer(many=True)
 
     class Meta:
