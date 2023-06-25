@@ -1,8 +1,6 @@
 from rest_framework import viewsets, permissions, generics
-from rest_framework.exceptions import ValidationError
 from .serializers import VoteSerializer, EmployeeSerializer, EmployeeRegisterSerializer
 from .models import Vote, Employee
-from main_app.models import Menu
 
 
 class VoteViewSet(viewsets.ModelViewSet):
@@ -23,7 +21,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
 class EmployeeRegisterViewSet(generics.CreateAPIView):
     """Employee Register ViewSet"""
-    
+
     permission_classes = [permissions.AllowAny]
     queryset = Employee.objects.all()
     serializer_class = EmployeeRegisterSerializer

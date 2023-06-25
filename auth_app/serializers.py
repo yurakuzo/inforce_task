@@ -17,7 +17,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ['id', 'full_name', 'votes'] # Fixed JSON response here
+        fields = ['id', 'full_name', 'votes']  # Fixed JSON response here
 
     def get_votes(self, obj):
         votes = Vote.objects.filter(user=obj)
@@ -38,6 +38,3 @@ class EmployeeRegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-
-
