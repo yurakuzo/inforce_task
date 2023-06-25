@@ -3,9 +3,7 @@ from datetime import date
 from auth_app.models import Employee
 import pytest
 from rest_framework.test import APIClient
-from django.urls import reverse
-from auth_app.tests import create_employee
-from .models import Menu, Restaurant
+from .models import Menu
 
 
 @pytest.fixture
@@ -19,6 +17,7 @@ def create_employee():
         return Employee.objects.create(full_name=full_name)
 
     return _create_employee
+
 
 @pytest.fixture
 def create_menu():
@@ -66,4 +65,4 @@ class TestTodayMenuList:
 
         assert response.status_code == 200
         assert len(response.data) == 1
-        assert response.data[0]['title'] == 'Menu 1'
+        assert response.data[0]['title'] == menu.title

@@ -44,7 +44,7 @@ class TodayMenuList(generics.ListAPIView):
 @permission_classes([permissions.IsAuthenticatedOrReadOnly])
 class MostVotedMenuList(generics.ListAPIView):
     """List Api View to GET todays most voted menu list"""
-    
+
     serializer_class = MenuSerializer
 
     def get_queryset(self):
